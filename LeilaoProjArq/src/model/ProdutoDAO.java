@@ -20,7 +20,7 @@ public class ProdutoDAO {
     	boolean sucesso = false;
 
     	cmd = "INSERT INTO produto(id_produto,nome,valor_inicial,maiorLance,descricao) values(?,?,?,?,?);";
-    	
+
     	try {
     		connection = new ConnectionFactory().getConnection();    		
     		System.out.println("Conexão aberta!");

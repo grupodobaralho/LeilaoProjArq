@@ -60,5 +60,6 @@ public class Produto {
 	public void setMaiorLance(double maiorLance) {
 		this.maiorLance = maiorLance;
 	}
+	
 
 }

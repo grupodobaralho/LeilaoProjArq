@@ -38,8 +38,8 @@ public class ProdutoController extends HttpServlet {
 		id = Integer.parseInt(request.getParameter("id"));
         nome = request.getParameter("nome");
         descricao = request.getParameter("descricao");
-        double valorInicial = Double.parseDouble(request.getParameter("valorInicial"));
-             
+        valorInicial = Double.parseDouble(request.getParameter("valorInicial"));
+        
         Produto p = new Produto();        
         p.setId(id);
         p.setNome(nome);

@@ -19,15 +19,16 @@
 				<td><input type="text" name="nome"></td>
 			</tr>
 			<tr>
-				<td>DescriÃ§Ã£o:</td>
+				<td>Descrição:</td>
 				<td><input type="text" name="descricao"></td>
 			</tr>
 			<tr>
 				<td>Valor Inicial:</td>
 				<td><input type="text" name="valorInicial"></td>
 			</tr>
-			<td></td>
-			<td><input type="submit" value="login"></td>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Cadastrar"></td>
 			</tr>
 		</table>
 

@@ -56,15 +56,15 @@ public class LoginCheck extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		String uname = request.getParameter("uname");
-//		String password = request.getParameter("password");
-//
-//		if (uname.equals("java") && password.equals("1234")) {
-//			response.sendRedirect("member.jsp");
-//		}
-//		else {
-//			response.sendRedirect("error.jsp");
-//		}
+		String uname = request.getParameter("uname");
+		String password = request.getParameter("password");
+		
+		if (uname.equals("java") && password.equals("1234")) {
+			response.sendRedirect("sucess.jsp");
+		}
+		else {
+			response.sendRedirect("error.jsp");
+		}
 	}
 
 }

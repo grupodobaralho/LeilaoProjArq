@@ -9,24 +9,23 @@ import dbConnection.ConnectionFactory;
 public class TestaConexao {
 
 	public static void main(String[] args) throws SQLException {
+		
+		System.out.println("Testando conexão...");
 		Connection connection = new ConnectionFactory().getConnection();
-		System.out.println("Conexão aberta!");
+		System.out.println("Conexão estabelecida!");
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-//		String cmd = "INSERT INTO produto(id_produto,nome,valor_inicial,maiorLance,descricao) values(3214466,pentezao,1234.0,0.0,fdvadvadfasdfasdf);";
-//
-//		PreparedStatement ps = connection.prepareStatement(cmd);
-//		if (ps.executeUpdate() > 0) {
-//			System.out.println("Cadastrado com sucesso");
-//		}
-//		connection.commit();
-//		ps.close();
-//		connection.close();
+		
+		//Descomente para testar diretamente a classe DAO
+//		System.out.println("AAAAAAAAAAA");
+//		ProdutoDAO pdao = new ProdutoDAO();
+//		pdao.inserir(new Produto(777777, "vai porfavor", "uma descricao muito louca", 555, 0));
+//		System.out.println("Foi");
+		
 	}
 
 }
