@@ -67,10 +67,10 @@ public class LanceController extends HttpServlet {
         
        
         out.println("<html>");
-        out.println("<head><title>Leirlão do Produto</title></head>\n");
+        out.println("<head><title>Leilao do Produto</title></head>\n");
         out.println("<body>");
         
-        out.println("<h2>Lances do Produto</h2>");
+        out.println("<h2>Leilao do Produto</h2>");
         out.println("<br>");
         
       

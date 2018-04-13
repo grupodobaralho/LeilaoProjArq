@@ -50,7 +50,7 @@ public class ProdutoController extends HttpServlet {
         ProdutoDAO dao = new ProdutoDAO();   
         dao.inserir(p);
         
-        //request.getRequestDispatcher("/WEB-INF/produto.jsp").forward(request, response);
+        response.sendRedirect("http://localhost:8080/LeilaoProjArq/ListProdutoController?");
         
 	}
 
