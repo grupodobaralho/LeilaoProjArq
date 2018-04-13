@@ -17,10 +17,10 @@ public class LanceDAO {
 	private String cmd;
 	private PreparedStatement ps;
     private Connection connection;
-    //TODO: mudar atributo Produto da classe Lance
+    //TODO: encontrar produto na classe controller.
     private ProdutoDAO prodDAO = new ProdutoDAO(); 
     
-    
+    //TODO: receber o LANCE, nao as informacoes id e valor -> HERCILIO BUNDAO
     public boolean inserir(int idProduto, double valor) {
     	boolean sucesso = false;
     	int index = sizeLance() + 1;

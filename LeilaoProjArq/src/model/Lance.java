@@ -1,5 +1,6 @@
 package model;
 
+//TODO: trocar int por double no valor
 public class Lance {
 
 	private int id;

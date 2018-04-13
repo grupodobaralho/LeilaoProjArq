@@ -14,6 +14,9 @@ import model.Produto;
 
 public class ProdutoDAO {
 	
+	//TODO: criar interface para as duas DAOS
+	//TODO: criar dois contrutores (um com produto e outro com
+	
 	private String cmd;
 	private PreparedStatement ps;
     private Connection connection;
