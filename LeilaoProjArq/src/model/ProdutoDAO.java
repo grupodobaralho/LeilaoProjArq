@@ -163,6 +163,40 @@ public class ProdutoDAO {
     	return prod;
     }
     
+    public boolean atualizaMaiorLance(int idProduto, double valor) {
+    	boolean sucesso = false;
+    	cmd = "UPDATE Produto SET maiorLance = " + valor+ " WHERE id_Produto =" + idProduto +";";
+    	
+    	try {
+    		connection = new ConnectionFactory().getConnection();    		
+    		
+    		connection.setAutoCommit(false);
+    		
+            ps = connection.prepareStatement(cmd);
+            ps.execute();
+            
+            connection.commit();
+            ps.close();
+            connection.close();
+            
+            System.out.println("Conexao aberta > atualizaMaiorLance > atualizacao feita com sucesso.");
+
+        } catch (SQLException ex) {
+            try {
+                System.out.print("Ocorreu um erro na atualizacao do Maior Lance!");
+                connection.rollback();
+            } catch (Exception ex2) {
+            }
+        } finally {
+            try {
+                ps.close();
+                connection.close();
+            } catch (Exception ex3) {
+            }
+        }
+        return sucesso;
+    }
+    
 
     public boolean excluir(Produto prod) {
     	return false;

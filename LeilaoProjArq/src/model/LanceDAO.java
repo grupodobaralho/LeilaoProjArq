@@ -23,6 +23,8 @@ public class LanceDAO {
     public boolean inserir(int idProduto, double valor) {
     	boolean sucesso = false;
     	int index = sizeLance() + 1;
+    	
+    	lanceEhMaior(idProduto, valor);
 
     	cmd = "INSERT INTO lance(id_lance, id_produto, valor) values("+ index + ", " +idProduto + ", " + valor + ");";
 
@@ -54,43 +56,6 @@ public class LanceDAO {
         }
         return sucesso;
     	
-    }
-    
-    public int sizeLance() {
-
-    	cmd = "SELECT COUNT(*) FROM Lance";
-    	
-    	int cont = 0;
-    	try {
-    		connection = new ConnectionFactory().getConnection();    		
-    		connection.setAutoCommit(false);
-    		
-            ps = connection.prepareStatement(cmd);
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.next()) {
-            	cont= rs.getInt("COUNT(*)");
-            }
-
-            System.out.println("Conexão aberta > sizeLance > Cont: " + cont);
-            
-            ps.close();
-            connection.close();
-
-        } catch (SQLException ex) {
-            try {
-                System.out.println("Não foi possivel contar os dados");
-                connection.rollback();
-            } catch (Exception ex2) {
-            }
-        } finally {
-            try {
-                ps.close();
-                connection.close();
-            } catch (Exception ex3) {
-            }
-        }
-        return cont;
     }
     
     public ArrayList<Lance> getLances(int id) {
@@ -143,6 +108,56 @@ public class LanceDAO {
         }
         return listLances;
     }
+    
+    public int sizeLance() {
+
+    	cmd = "SELECT COUNT(*) FROM Lance";
+    	
+    	int cont = 0;
+    	try {
+    		connection = new ConnectionFactory().getConnection();    		
+    		connection.setAutoCommit(false);
+    		
+            ps = connection.prepareStatement(cmd);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()) {
+            	cont= rs.getInt("COUNT(*)");
+            }
+
+            System.out.println("Conexão aberta > sizeLance > Cont: " + cont);
+            
+            ps.close();
+            connection.close();
+
+        } catch (SQLException ex) {
+            try {
+                System.out.println("Não foi possivel contar os dados");
+                connection.rollback();
+            } catch (Exception ex2) {
+            }
+        } finally {
+            try {
+                ps.close();
+                connection.close();
+            } catch (Exception ex3) {
+            }
+        }
+        return cont;
+    }
+    
+    public void lanceEhMaior(int idProduto, double valor) {
+    	ProdutoDAO pDao = new ProdutoDAO();
+    	Produto prod = pDao.getProdutoEspecifico(idProduto);
+    	
+    	if(prod.getMaiorLance() >= valor)
+    		return;
+    	else 
+    		pDao.atualizaMaiorLance(idProduto, valor);
+    	
+    }
+    
+    
 
     public boolean excluir(Produto prod) {
     	return false;
