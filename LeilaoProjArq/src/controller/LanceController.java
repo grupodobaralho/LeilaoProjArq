@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.ProdutoDAO;
 import model.Lance;
+import model.LanceDAO;
 import model.Produto;
 
 /**
@@ -50,12 +51,13 @@ public class LanceController extends HttpServlet {
 		}
 		
         
-        ProdutoDAO dao = new ProdutoDAO();   
+        ProdutoDAO dao = new ProdutoDAO();  
+        LanceDAO lDao = new LanceDAO();
         Produto prod = dao.getProdutoEspecifico(idProduto);
-        ArrayList<Lance> listLances = dao.getLances(idProduto);
+        ArrayList<Lance> listLances = lDao.getLances(idProduto);
         
         if(valorLance > 0) {
-			dao.inserirLance(idProduto, valorLance);
+        	lDao.inserir(idProduto, valorLance);
 		    response.sendRedirect("http://localhost:8080/LeilaoProjArq/LanceController?id_produto=" + idProduto);
 			
 		}
