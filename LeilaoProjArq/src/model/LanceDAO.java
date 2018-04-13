@@ -17,6 +17,7 @@ public class LanceDAO {
 	private String cmd;
 	private PreparedStatement ps;
     private Connection connection;
+    //TODO: mudar atributo Produto da classe Lance
     private ProdutoDAO prodDAO = new ProdutoDAO(); 
     
     
