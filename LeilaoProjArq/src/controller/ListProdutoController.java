@@ -53,16 +53,16 @@ public class ListProdutoController extends HttpServlet {
         		"<p>Selecione o produto desejado e precione o botao \"Fazer Lances\"</p>");
         out.println("<br>");
 
-	    out.println("<form action=\"/LancesController\">");
-	    out.println("<input list=\"produtos\" name=\"produtos\">");
+	    out.println("<form action=\"LanceController\" method=\"GET\">");
+	    out.println("<input list=\"produtos\" name=\"id_produto\">");
 	    out.println("<datalist id=\"produtos\">");
 	    
 	    for(Produto x : listProdutos) {	    	
-	    	out.println("<option value=" + x.getNome() + ">" + x.getId() + "</option>" );
+	    	out.println("<option value=" + x.getId() + ">" + x.getNome() + "</option>" );
 	    }
 	   
 	    out.println("</datalist>");
-	    out.println("<br><br>");
+	    out.println("<br>");
 	    out.println("<input type=\"submit\" value=\"Fazer Lances\">");
 	    
 	    out.println("</form>");
