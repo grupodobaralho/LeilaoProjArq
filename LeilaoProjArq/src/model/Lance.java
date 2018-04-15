@@ -1,20 +1,19 @@
 package model;
 
-//TODO: trocar int por double no valor -- COMPLETO
 public class Lance {
 
 	private int id;
-	private Produto produto;
+	private int idProduto;
 	private double valor;
 
 	public Lance() {
 
 	}
 
-	public Lance(int id, Produto produto, int valor) {
+	public Lance(int id, int idProduto, int valor) {
 		super();
 		this.id = id;
-		this.produto = produto;
+		this.idProduto = idProduto;
 		this.valor = valor;
 	}
 
@@ -26,12 +25,12 @@ public class Lance {
 		this.id = id;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public int getIdProduto() {
+		return idProduto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
 	}
 
 	public double getValor() {

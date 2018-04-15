@@ -17,8 +17,6 @@ public class LanceDAO {
 	private String cmd;
 	private PreparedStatement ps;
     private Connection connection;
-    //TODO: encontrar produto na classe controller.
-    private ProdutoDAO prodDAO = new ProdutoDAO(); 
     
     //TODO: receber o LANCE, nao as informacoes id e valor -> HERCILIO BUNDAO
     public boolean inserir(int idProduto, double valor) {
@@ -57,10 +55,9 @@ public class LanceDAO {
     	
     }
     
-    public ArrayList<Lance> getLances(int id) {
+    public ArrayList<Lance> getLances(int idProduto) {
     	ArrayList<Lance> listLances = null;
-    	cmd = "SELECT * FROM leilao.Lance INNER JOIN leilao.Produto ON leilao.Produto.id_produto = leilao.Lance.id_produto WHERE leilao.Lance.id_produto = " + id + ";";	
-    	Produto prod = prodDAO.getProdutoEspecifico(id);
+    	cmd = "SELECT * FROM leilao.Lance INNER JOIN leilao.Produto ON leilao.Produto.id_produto = leilao.Lance.id_produto WHERE leilao.Lance.id_produto = " + idProduto + ";";	
 
     	try {
     		connection = new ConnectionFactory().getConnection();    		
@@ -80,7 +77,7 @@ public class LanceDAO {
             	Lance lance = new Lance();
             	
             	lance.setId(idLance);
-            	lance.setProduto(prod);
+            	lance.setIdProduto(idProduto);
             	lance.setValor(valor);
             	
             	listLances.add(lance);
