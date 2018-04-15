@@ -57,8 +57,10 @@ public class ListProdutoController extends HttpServlet {
 	    out.println("<input list=\"produtos\" name=\"id_produto\">");
 	    out.println("<datalist id=\"produtos\">");
 	    
-	    for(Produto x : listProdutos) {	    	
-	    	out.println("<option value=" + x.getId() + ">" + x.getNome() + "</option>" );
+	    if(!listProdutos.isEmpty()) {
+	    	for(Produto x : listProdutos) {	    	
+	    		out.println("<option value=" + x.getId() + ">" + x.getNome() + "</option>" );
+	    	}
 	    }
 	   
 	    out.println("</datalist>");

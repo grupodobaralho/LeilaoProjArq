@@ -2,7 +2,7 @@ package model;
 
 import dbConnection.ConnectionFactory;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.PreparedStatement;	
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ProdutoDAO {
     public boolean inserir(Produto prod) {
     	boolean sucesso = false;
 
-    	cmd = "INSERT INTO produto(id_produto,nome,valor_inicial,maiorLance,descricao) values(?,?,?,?,?);";
+    	cmd = "INSERT INTO leilao.Produto(id_produto,nome,valor_inicial,maiorLance,descricao) values(?,?,?,?,?);";
 
     	try {
     		connection = new ConnectionFactory().getConnection();    		
@@ -67,11 +67,10 @@ public class ProdutoDAO {
     
     public ArrayList<Produto> getProdutos() {
     	ArrayList<Produto> listProduto = null;
-    	cmd = "SELECT * FROM PRODUTO;";
+    	cmd = "SELECT * FROM leilao.Produto;";
     	
     	try {
     		connection = new ConnectionFactory().getConnection();    		
-    		System.out.println("Conexão aberta!");
     		connection.setAutoCommit(false);
     		
             ps = connection.prepareStatement(cmd);
@@ -98,13 +97,15 @@ public class ProdutoDAO {
                 listProduto.add(prod);  
             }
             
+            System.out.println("Conexao aberta > getProdutos > produtos listados com sucesso");
+            
             ps.close();
             connection.close();
             
 
         } catch (SQLException ex) {
             try {
-                System.out.print("Não foi possível listar os dados");
+                System.out.print("Nï¿½o foi possï¿½vel listar os dados");
                 connection.rollback();
             } catch (Exception ex2) {
             }
@@ -119,7 +120,7 @@ public class ProdutoDAO {
     }
     
     public Produto getProdutoEspecifico(int id) {
-    	String cmd = "SELECT * FROM Produto WHERE id_produto = ?;";
+    	String cmd = "SELECT * FROM leilao.Produto WHERE id_produto = ?;";
     	Produto prod = new Produto();
     	
     	try {
@@ -144,14 +145,14 @@ public class ProdutoDAO {
 	            prod.setDescricao(descricao);
             }
             
-            System.out.println("Conexão aberta > getProduto > capturando produto. ");
+            System.out.println("Conexï¿½o aberta > getProduto > capturando produto. ");
             
             ps.close();
             connection.close();
             
         } catch (SQLException ex) {
             try {
-                System.out.println("Produto não encontrado!");
+                System.out.println("Produto nï¿½o encontrado!");
                 connection.rollback();
             } catch (Exception ex2) {
             }
@@ -168,7 +169,7 @@ public class ProdutoDAO {
     
     public boolean atualizaMaiorLance(int idProduto, double valor) {
     	boolean sucesso = false;
-    	cmd = "UPDATE Produto SET maiorLance = " + valor+ " WHERE id_Produto =" + idProduto +";";
+    	cmd = "UPDATE leilao.Produto SET maiorLance = " + valor+ " WHERE id_Produto =" + idProduto +";";
     	
     	try {
     		connection = new ConnectionFactory().getConnection();    		
