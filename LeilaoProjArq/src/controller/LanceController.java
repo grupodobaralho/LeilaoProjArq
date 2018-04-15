@@ -60,11 +60,7 @@ public class LanceController extends HttpServlet {
         	lDao.inserir(idProduto, valorLance);
         	if(valorLance > prod.getMaiorLance())
         		dao.atualizaMaiorLance(idProduto, valorLance);
-    
-        	
-            	
-            
-        	//TODO: mudar maior lance para controller.
+        	//TODO: mudar maior lance para controller. --COMPLETO
 		    response.sendRedirect("http://localhost:8080/LeilaoProjArq/LanceController?id_produto=" + idProduto);
 			
 		}

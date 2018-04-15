@@ -1,11 +1,11 @@
 package model;
 
-//TODO: trocar int por double no valor
+//TODO: trocar int por double no valor -- COMPLETO
 public class Lance {
 
 	private int id;
 	private Produto produto;
-	private int valor;
+	private double valor;
 
 	public Lance() {
 
@@ -34,11 +34,11 @@ public class Lance {
 		this.produto = produto;
 	}
 
-	public int getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(int valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
