@@ -49,22 +49,24 @@ public class LanceController extends HttpServlet {
 			valorLance = 0;
 		
         ProdutoDAO pDao = new ProdutoDAO();  
-        LanceDAO lDao = new LanceDAO();
-        
         Produto prod = pDao.getProdutoEspecifico(idProduto);
-        ArrayList<Lance> listLances = lDao.getLances(idProduto);
         
+        LanceDAO lanceDaoSelect = new LanceDAO(prod.getId());
+        ArrayList<Object> listLances = lanceDaoSelect.selectAll();
+        
+        //Mensagem caso o lance seja inalido
         String msgValorInvalido = null;
         
         if(valorLance > 0) {
         	if(valorLance >= prod.getValorInicial() && valorLance > prod.getMaiorLance()) {
 	        	Lance lance = new Lance();
-	        	lance.setId(lDao.sizeLance() + 1);
+	        	lance.setId(lanceDaoSelect.sizeLance() + 1);
 	        	lance.setIdProduto(idProduto);
 	        	lance.setValor(valorLance);
 	        	
 	        	//Insere lance no banco
-	        	lDao.inserir(lance);
+	        	LanceDAO lanceDaoInsert = new LanceDAO(lance);
+	        	lanceDaoInsert.insert(lance);
 	        	
 	        	//Atualiza maior lance
 	        	pDao.atualizaMaiorLance(lance);
@@ -74,7 +76,7 @@ public class LanceController extends HttpServlet {
         	} else if (valorLance < prod.getValorInicial())
         		msgValorInvalido = 	"Valor " + valorLance + " eh inferior ao valor incial!";
         	else
-        		msgValorInvalido = 	"Valor " + valorLance + " eh inferior ao maior lance!";
+        		msgValorInvalido = 	"Valor " + valorLance + " eh igual ou inferior ao maior lance!";
         	
 			
 		}
@@ -110,7 +112,7 @@ public class LanceController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void printTabelaInHtml(ServletOutputStream out, Produto prod, ArrayList<Lance> listLances) throws IOException {
+	private void printTabelaInHtml(ServletOutputStream out, Produto prod, ArrayList<Object> listLances) throws IOException {
 		
 	    out.println("<table>\r\n" + 
 	    		"			<tr>\r\n" + 
@@ -134,10 +136,10 @@ public class LanceController extends HttpServlet {
 	    		"	      <th>Valor</th>\r\n" +  
 	    		"</tr>");
 	    
-	    for(Lance x : listLances) {	  
+	    for(Object x : listLances) {	  
 	    	out.println("<tr>");
-	    	out.print("<td>"+ x.getId() +"</td>");
-	    	out.print("<td>"+ x.getValor() +"</td>");
+	    	out.print("<td>"+ ((Lance) x).getId() +"</td>");
+	    	out.print("<td>"+ ((Lance) x).getValor() +"</td>");
 	    	out.println("</tr>");
 	    }
 	    

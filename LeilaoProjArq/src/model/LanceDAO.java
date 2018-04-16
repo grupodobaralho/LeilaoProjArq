@@ -12,15 +12,26 @@ import com.mysql.jdbc.ResultSetMetaData;
 
 import model.Produto;
 
-public class LanceDAO {
+public class LanceDAO implements DAO{
 	
 	private String cmd;
 	private PreparedStatement ps;
     private Connection connection;
+    /*Variaveis de entrada*/
+    private Lance lance;
+    private int pkProduto;
     
-    //TODO: receber o LANCE, nao as informacoes id e valor -> HERCILIO BUNDAO
-    public boolean inserir(Lance lance) {
-    	boolean sucesso = false;
+    public LanceDAO(Lance lance) {
+    	this.lance = lance;
+    }
+    
+    public LanceDAO(int pkProduto) {
+    	this.pkProduto = pkProduto;
+    }
+    
+	@Override
+	public boolean insert(Object objeto) {
+		boolean sucesso = false;
     	
     	cmd = "INSERT INTO leilao.Lance(id_lance, id_produto, valor) values(?,?,?);";
 
@@ -56,13 +67,14 @@ public class LanceDAO {
             }
         }
         return sucesso;
-    	
-    }
-    
-    public ArrayList<Lance> getLances(int idProduto) {
-    	ArrayList<Lance> listLances = null;
+	}
+
+	@Override
+	public ArrayList<Object> selectAll() {
+
+		ArrayList<Object> listLances = null;
     	cmd = "SELECT * FROM leilao.Lance INNER JOIN leilao.Produto ON leilao.Produto.id_produto = " 
-    			+ "leilao.Lance.id_produto WHERE leilao.Lance.id_produto = " + idProduto + ";";	
+    			+ "leilao.Lance.id_produto WHERE leilao.Lance.id_produto = " + pkProduto + ";";	
 
     	try {
     		connection = new ConnectionFactory().getConnection();    		
@@ -82,7 +94,7 @@ public class LanceDAO {
             	Lance lance = new Lance();
             	
             	lance.setId(idLance);
-            	lance.setIdProduto(idProduto);
+            	lance.setIdProduto(pkProduto);
             	lance.setValor(valor);
             	
             	listLances.add(lance);
@@ -108,9 +120,15 @@ public class LanceDAO {
             }
         }
         return listLances;
-    }
-    
-    public int sizeLance() {
+	}
+
+	@Override
+	public Object selectEspecificData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public int sizeLance() {
 
     	cmd = "SELECT COUNT(*) FROM leilao.Lance";
     	
@@ -145,23 +163,6 @@ public class LanceDAO {
             }
         }
         return cont;
-    }
-    
-
-    public boolean excluir(Produto prod) {
-    	return false;
-    }
-
-    public boolean alterar(Produto prod) {
-    	return false;
-    }
-
-    public Object buscarId(int id) {
-    	return null;
-    }
-
-    public Object buscarTodos() {
-    	return null;
     }
     
 
