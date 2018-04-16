@@ -16,7 +16,10 @@ public class ProdutoDAO implements DAO{
     private Connection connection;
     /*Variaveis de entrada*/
     private Produto prod;
-    private int pkProduto;
+    private int idProduto;
+    
+    public ProdutoDAO() {
+    }
     
     //Construtor para insert
     public ProdutoDAO(Produto prod) {
@@ -24,8 +27,8 @@ public class ProdutoDAO implements DAO{
     }
     
     //Construtor para selectEspecificData e atualizaMaiorLance
-    public ProdutoDAO(int pkProduto) {
-    	this.pkProduto = pkProduto;
+    public ProdutoDAO(int idProduto) {
+    	this.idProduto = idProduto;
     }
 
 	@Override
@@ -137,7 +140,7 @@ public class ProdutoDAO implements DAO{
     		connection.setAutoCommit(false);
     		
             ps = connection.prepareStatement(cmd);
-            ps.setInt(1, pkProduto);
+            ps.setInt(1, idProduto);
             ResultSet rs = ps.executeQuery();
            
             if(rs.next()) {
@@ -178,6 +181,7 @@ public class ProdutoDAO implements DAO{
 	
 	public boolean atualizaMaiorLance(double valor) {
     	boolean sucesso = false;
+    	
     	cmd = "UPDATE leilao.Produto SET maiorLance = ? WHERE id_Produto = ?;";
     	
     	try {
@@ -187,7 +191,7 @@ public class ProdutoDAO implements DAO{
             ps = connection.prepareStatement(cmd);
             
             ps.setDouble(1, valor);
-            ps.setInt(2, pkProduto);
+            ps.setInt(2, idProduto);
             
             ps.execute();
             
@@ -211,7 +215,6 @@ public class ProdutoDAO implements DAO{
             }
         }
         return sucesso;
-    }
-    
+	}
 
 }

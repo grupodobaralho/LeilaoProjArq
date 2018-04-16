@@ -1,7 +1,9 @@
 -- Geracao de Modelo fisico
 -- Sql ANSI 2003 - brModelo.
+-- Israel Deorce, Hercilio Ortiz e Pedro Ortiz. 16-04-2018
 
-
+DROP TABLE Lance;
+DROP TABLE Produto;
 
 CREATE TABLE Lance (
 id_lance NUMERIC(8) PRIMARY KEY,

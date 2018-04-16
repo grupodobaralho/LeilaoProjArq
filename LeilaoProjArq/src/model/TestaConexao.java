@@ -4,14 +4,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import dbConnection.ConnectionFactory;
-
+/**
+ * Classe de Testes para verificar funcionamento da conexão com o banco.
+ * @author Israel-PC
+ *
+ */
 public class TestaConexao {
 
 	public static void main(String[] args) throws SQLException {
 		
-		System.out.println("Testando conexï¿½o...");
+		System.out.println("Testando conexao...");
 		Connection connection = new ConnectionFactory().getConnection();
-		System.out.println("Conexï¿½o estabelecida!");
+		System.out.println("Conexao estabelecida!");
 		try {
 			connection.close();
 		} catch (SQLException e) {
