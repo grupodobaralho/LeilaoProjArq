@@ -9,18 +9,28 @@ import java.util.ArrayList;
 
 import model.Produto;
 
-public class ProdutoDAO {
-	
-	//TODO: criar interface para as duas DAOS
-	//TODO: criar dois contrutores (um com produto e outro com
+public class ProdutoDAO implements DAO{
 	
 	private String cmd;
 	private PreparedStatement ps;
     private Connection connection;
+    /*Variaveis de entrada*/
+    private Produto prod;
+    private int pkProduto;
     
+    //Construtor para insert
+    public ProdutoDAO(Produto prod) {
+    	this.prod = prod;
+    }
     
-    public boolean inserir(Produto prod) {
-    	boolean sucesso = false;
+    //Construtor para selectEspecificData e atualizaMaiorLance
+    public ProdutoDAO(int pkProduto) {
+    	this.pkProduto = pkProduto;
+    }
+
+	@Override
+	public boolean insert() {
+		boolean sucesso = false;
 
     	cmd = "INSERT INTO leilao.Produto(id_produto,nome,valor_inicial,maiorLance,descricao) values(?,?,?,?,?);";
 
@@ -60,10 +70,11 @@ public class ProdutoDAO {
             }
         }
         return sucesso;
-    }
-    
-    public ArrayList<Produto> getProdutos() {
-    	ArrayList<Produto> listProduto = null;
+	}
+
+	@Override
+	public ArrayList<Object> selectAll() {
+		ArrayList<Object> listProduto = null;
     	cmd = "SELECT * FROM leilao.Produto;";
     	
     	try {
@@ -114,10 +125,11 @@ public class ProdutoDAO {
             }
         }
         return listProduto;
-    }
-    
-    public Produto getProdutoEspecifico(int id) {
-    	String cmd = "SELECT * FROM leilao.Produto WHERE id_produto = ?;";
+	}
+
+	@Override
+	public Object selectEspecificData() {
+		String cmd = "SELECT * FROM leilao.Produto WHERE id_produto = ?;";
     	Produto prod = new Produto();
     	
     	try {
@@ -125,7 +137,7 @@ public class ProdutoDAO {
     		connection.setAutoCommit(false);
     		
             ps = connection.prepareStatement(cmd);
-            ps.setInt(1, id);
+            ps.setInt(1, pkProduto);
             ResultSet rs = ps.executeQuery();
            
             if(rs.next()) {
@@ -162,9 +174,9 @@ public class ProdutoDAO {
         }
     	
     	return prod;
-    }
-    
-    public boolean atualizaMaiorLance(Lance lance) {
+	}
+	
+	public boolean atualizaMaiorLance(double valor) {
     	boolean sucesso = false;
     	cmd = "UPDATE leilao.Produto SET maiorLance = ? WHERE id_Produto = ?;";
     	
@@ -174,8 +186,8 @@ public class ProdutoDAO {
     		
             ps = connection.prepareStatement(cmd);
             
-            ps.setDouble(1, lance.getValor());
-            ps.setInt(2, lance.getIdProduto());
+            ps.setDouble(1, valor);
+            ps.setInt(2, pkProduto);
             
             ps.execute();
             
@@ -199,23 +211,6 @@ public class ProdutoDAO {
             }
         }
         return sucesso;
-    }
-    
-
-    public boolean excluir(Produto prod) {
-    	return false;
-    }
-
-    public boolean alterar(Produto prod) {
-    	return false;
-    }
-
-    public Object buscarId(int id) {
-    	return null;
-    }
-
-    public Object buscarTodos() {
-    	return null;
     }
     
 

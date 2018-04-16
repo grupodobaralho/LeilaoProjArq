@@ -47,8 +47,8 @@ public class ProdutoController extends HttpServlet {
         p.setValorInicial(valorInicial);
         p.setMaiorLance(0);
         
-        ProdutoDAO dao = new ProdutoDAO();   
-        dao.inserir(p);
+        ProdutoDAO pDao = new ProdutoDAO(p);   
+        pDao.insert();
         
         response.sendRedirect("http://localhost:8080/LeilaoProjArq/ListProdutoController?");
         

@@ -48,8 +48,9 @@ public class LanceController extends HttpServlet {
 		else 
 			valorLance = 0;
 		
-        ProdutoDAO pDao = new ProdutoDAO();  
-        Produto prod = pDao.getProdutoEspecifico(idProduto);
+        ProdutoDAO pDaoPk = new ProdutoDAO(idProduto);  
+        Object produtoObjeto = pDaoPk.selectEspecificData();
+        Produto prod = (Produto) produtoObjeto;
         
         LanceDAO lanceDaoSelect = new LanceDAO(prod.getId());
         ArrayList<Object> listLances = lanceDaoSelect.selectAll();
@@ -66,10 +67,10 @@ public class LanceController extends HttpServlet {
 	        	
 	        	//Insere lance no banco
 	        	LanceDAO lanceDaoInsert = new LanceDAO(lance);
-	        	lanceDaoInsert.insert(lance);
+	        	lanceDaoInsert.insert();
 	        	
 	        	//Atualiza maior lance
-	        	pDao.atualizaMaiorLance(lance);
+	        	pDaoPk.atualizaMaiorLance(valorLance);
 	        	
 	        	//Atualiza pagina sem inserir nenhum elemento no banco
 			    response.sendRedirect("http://localhost:8080/LeilaoProjArq/LanceController?id_produto=" + idProduto);

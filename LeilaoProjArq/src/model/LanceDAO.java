@@ -6,11 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import com.mysql.jdbc.ResultSetMetaData;
-
-import model.Produto;
 
 public class LanceDAO implements DAO{
 	
@@ -30,7 +26,7 @@ public class LanceDAO implements DAO{
     }
     
 	@Override
-	public boolean insert(Object objeto) {
+	public boolean insert() {
 		boolean sucesso = false;
     	
     	cmd = "INSERT INTO leilao.Lance(id_lance, id_produto, valor) values(?,?,?);";

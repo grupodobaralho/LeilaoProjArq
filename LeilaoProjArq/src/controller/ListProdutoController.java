@@ -39,8 +39,8 @@ public class ListProdutoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("ISO-8859-1");//CODIFICAO charset=ISO-8859-1 PARA ACENTUACAO E CARACTRES ESPECIAIS
 		
-		ProdutoDAO dao = new ProdutoDAO();   
-        ArrayList<Produto> listProdutos = dao.getProdutos();
+		ProdutoDAO pDaoGeneric = new ProdutoDAO(null);   
+        ArrayList<Object> listProdutos = pDaoGeneric.selectAll();
         
         response.setContentType("text/html;charset=UTF-8");
         ServletOutputStream out = response.getOutputStream();
@@ -58,8 +58,8 @@ public class ListProdutoController extends HttpServlet {
 	    out.println("<datalist id=\"produtos\">");
 	    
 	    if(!listProdutos.isEmpty()) {
-	    	for(Produto x : listProdutos) {	    	
-	    		out.println("<option value=" + x.getId() + ">" + x.getNome() + "</option>" );
+	    	for(Object x : listProdutos) {	    	
+	    		out.println("<option value=" + ((Produto) x).getId() + ">" + ((Produto) x).getNome() + "</option>" );
 	    	}
 	    }
 	   
