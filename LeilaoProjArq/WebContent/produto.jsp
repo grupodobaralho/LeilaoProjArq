@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<input type="submit" value="HOME" onclick="window.location='http://localhost:8080/LeilaoProjArq/';" /> 
+    <br>
 	<h1>Cadastro de Produto</h1>
 	<form action="ProdutoController" method="GET">
 		<table>

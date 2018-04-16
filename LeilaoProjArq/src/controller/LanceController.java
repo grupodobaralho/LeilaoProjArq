@@ -90,6 +90,11 @@ public class LanceController extends HttpServlet {
         out.println("<head><title>Leilao do Produto</title></head>\n");
         out.println("<body>");
         
+        out.println("<input type=\"submit\" value=\"HOME\" \r\n" + 
+        		"    onclick=\"window.location='http://localhost:8080/LeilaoProjArq/';\" /> ");
+        
+        out.println("<br>");
+        
         out.println("<h2>Leilao do Produto</h2>");
         out.println("<br>");
         

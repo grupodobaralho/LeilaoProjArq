@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -48,6 +47,11 @@ public class ListProdutoController extends HttpServlet {
         out.println("<html>");
         out.println("<head><title>Listas de Produtos</title></head>\n");
         out.println("<body>");
+        
+        out.println("<input type=\"submit\" value=\"HOME\" \r\n" + 
+        		"    onclick=\"window.location='http://localhost:8080/LeilaoProjArq/';\" /> ");
+        
+        out.println("<br>");
         
         out.println("<h2>Lista de Produtos em Leilao</h2>\r\n" + 
         		"<p>Selecione o produto desejado e precione o botao \"Fazer Lances\"</p>");

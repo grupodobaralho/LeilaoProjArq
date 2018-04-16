@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import dbConnection.ConnectionFactory;
@@ -10,9 +9,9 @@ public class TestaConexao {
 
 	public static void main(String[] args) throws SQLException {
 		
-		System.out.println("Testando conexão...");
+		System.out.println("Testando conexï¿½o...");
 		Connection connection = new ConnectionFactory().getConnection();
-		System.out.println("Conexão estabelecida!");
+		System.out.println("Conexï¿½o estabelecida!");
 		try {
 			connection.close();
 		} catch (SQLException e) {
