@@ -83,8 +83,8 @@ public class ProdutoDAO {
       
             	int id = rs.getInt("id_produto");
                 String nome = rs.getString("nome");
-                int valorInicial = rs.getInt("valor_inicial");
-                int maiorLance = rs.getInt("maiorLance");
+                double valorInicial = rs.getDouble("valor_inicial");
+                double maiorLance = rs.getDouble("maiorLance");
                 String descricao = rs.getString("descricao");
        
                 Produto prod = new Produto();
@@ -134,8 +134,8 @@ public class ProdutoDAO {
             if(rs.next()) {
 	        	int idProduto= rs.getInt("id_produto");
 	            String nome = rs.getString("nome");
-	            int valorInicial = rs.getInt("valor_inicial");
-	            int maiorLance = rs.getInt("maiorLance");
+	            double valorInicial = rs.getDouble("valor_inicial");
+	            double maiorLance = rs.getDouble("maiorLance");
 	            String descricao = rs.getString("descricao");
 	            
 	            prod.setId(idProduto);

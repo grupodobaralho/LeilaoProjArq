@@ -77,7 +77,7 @@ public class LanceDAO {
             while(rs.next()) {  
       
             	int idLance = rs.getInt("id_lance");
-            	int valor = rs.getInt("valor");  
+            	double valor = rs.getDouble("valor");  
           
             	Lance lance = new Lance();
             	
