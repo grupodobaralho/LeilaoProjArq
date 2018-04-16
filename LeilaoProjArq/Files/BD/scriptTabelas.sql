@@ -18,3 +18,6 @@ descricao VARCHAR(200)
 );
 
 ALTER TABLE Lance ADD FOREIGN KEY(id_produto) REFERENCES Produto (id_produto);
+ALTER TABLE Lance MODIFY valor DECIMAL(10,2);
+ALTER TABLE Produto MODIFY valor_inicial DECIMAL(10,2);
+ALTER TABLE Produto MODIFY maiorLance DECIMAL(10,2);

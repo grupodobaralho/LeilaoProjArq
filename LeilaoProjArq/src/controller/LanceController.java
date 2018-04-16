@@ -24,7 +24,7 @@ public class LanceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     int idProduto;
-    double valorLance = 0;
+    double valorLance;
     
     /**
      * @see HttpServlet#HttpServlet()
