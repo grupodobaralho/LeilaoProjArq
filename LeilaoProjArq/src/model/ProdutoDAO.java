@@ -1,23 +1,14 @@
 package model;
 
 import dbConnection.ConnectionFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;	
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Produto;
 
-public class ProdutoDAO implements DAO{
-	
-	private String cmd;
-	private PreparedStatement ps;
-    private Connection connection;
-    /*Variaveis de entrada*/
-    private Produto prod;
-    private int pkProduto;
-    
+public class ProdutoDAO extends DAO{
+
     //Construtor para insert
     public ProdutoDAO(Produto prod) {
     	this.prod = prod;

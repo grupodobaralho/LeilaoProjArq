@@ -1,22 +1,13 @@
 package model;
 
 import dbConnection.ConnectionFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class LanceDAO implements DAO{
-	
-	private String cmd;
-	private PreparedStatement ps;
-    private Connection connection;
-    /*Variaveis de entrada*/
-    private Lance lance;
-    private int pkProduto;
-    
+public class LanceDAO extends DAO{
+	    
     public LanceDAO(Lance lance) {
     	this.lance = lance;
     }
