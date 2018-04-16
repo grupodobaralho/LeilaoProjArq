@@ -167,16 +167,19 @@ public class ProdutoDAO {
     	return prod;
     }
     
-    public boolean atualizaMaiorLance(int idProduto, double valor) {
+    public boolean atualizaMaiorLance(Lance lance) {
     	boolean sucesso = false;
-    	cmd = "UPDATE leilao.Produto SET maiorLance = " + valor+ " WHERE id_Produto =" + idProduto +";";
+    	cmd = "UPDATE leilao.Produto SET maiorLance = ? WHERE id_Produto = ?;";
     	
     	try {
     		connection = new ConnectionFactory().getConnection();    		
-    		
     		connection.setAutoCommit(false);
     		
             ps = connection.prepareStatement(cmd);
+            
+            ps.setDouble(1, lance.getValor());
+            ps.setInt(2, lance.getIdProduto());
+            
             ps.execute();
             
             connection.commit();

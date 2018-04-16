@@ -19,17 +19,21 @@ public class LanceDAO {
     private Connection connection;
     
     //TODO: receber o LANCE, nao as informacoes id e valor -> HERCILIO BUNDAO
-    public boolean inserir(int idProduto, double valor) {
+    public boolean inserir(Lance lance) {
     	boolean sucesso = false;
-    	int index = sizeLance() + 1;
     	
-    	cmd = "INSERT INTO leilao.Lance(id_lance, id_produto, valor) values("+ index + ", " +idProduto + ", " + valor + ");";
+    	cmd = "INSERT INTO leilao.Lance(id_lance, id_produto, valor) values(?,?,?);";
 
     	try {
     		connection = new ConnectionFactory().getConnection();    		    		
     		connection.setAutoCommit(false);
 
             ps = connection.prepareStatement(cmd);
+            
+            ps.setInt(1, lance.getId());
+            ps.setInt(2, lance.getIdProduto());
+            ps.setDouble(3, lance.getValor());
+            
             ps.execute();
             
             System.out.println("Conex�o aberta > iniserirLance > insers�o completa. ");
@@ -57,7 +61,8 @@ public class LanceDAO {
     
     public ArrayList<Lance> getLances(int idProduto) {
     	ArrayList<Lance> listLances = null;
-    	cmd = "SELECT * FROM leilao.Lance INNER JOIN leilao.Produto ON leilao.Produto.id_produto = leilao.Lance.id_produto WHERE leilao.Lance.id_produto = " + idProduto + ";";	
+    	cmd = "SELECT * FROM leilao.Lance INNER JOIN leilao.Produto ON leilao.Produto.id_produto = " 
+    			+ "leilao.Lance.id_produto WHERE leilao.Lance.id_produto = " + idProduto + ";";	
 
     	try {
     		connection = new ConnectionFactory().getConnection();    		

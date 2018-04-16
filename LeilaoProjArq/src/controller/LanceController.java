@@ -1,10 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -44,23 +42,32 @@ public class LanceController extends HttpServlet {
 		
 		idProduto = Integer.parseInt(request.getParameter("id_produto"));
 		
-		if(request.getParameter("valor_lance") != null && !request.getParameter("valor_lance").equals("")) {
-			valorLance = Integer.parseInt(request.getParameter("valor_lance"));
-		} else {
+		//Verifica se ocorre o pedido de insersao no banco
+		if(request.getParameter("valor_lance") != null && !request.getParameter("valor_lance").equals("")) 
+			valorLance = Double.parseDouble(request.getParameter("valor_lance"));
+		else 
 			valorLance = 0;
-		}
 		
-        
-        ProdutoDAO dao = new ProdutoDAO();  
+        ProdutoDAO pDao = new ProdutoDAO();  
         LanceDAO lDao = new LanceDAO();
-        Produto prod = dao.getProdutoEspecifico(idProduto);
+        
+        Produto prod = pDao.getProdutoEspecifico(idProduto);
         ArrayList<Lance> listLances = lDao.getLances(idProduto);
         
         if(valorLance > 0) {
-        	lDao.inserir(idProduto, valorLance);
+        	Lance lance = new Lance();
+        	lance.setId(lDao.sizeLance() + 1);
+        	lance.setIdProduto(idProduto);
+        	lance.setValor(valorLance);
+        	
+        	//Insere lance no banco
+        	lDao.inserir(lance);
+        	
+        	//Atualiza maior lance
         	if(valorLance > prod.getMaiorLance())
-        		dao.atualizaMaiorLance(idProduto, valorLance);
-        	//TODO: mudar maior lance para controller. --COMPLETO
+        		pDao.atualizaMaiorLance(lance);
+        	
+        	//Atualiza pagina sem inserir nenhum elemento no banco
 		    response.sendRedirect("http://localhost:8080/LeilaoProjArq/LanceController?id_produto=" + idProduto);
 			
 		}
@@ -83,9 +90,6 @@ public class LanceController extends HttpServlet {
         
         out.println("</body></html>");
 	    out.close();
-        
-        
-	    
 	}
 
 	/**
@@ -130,9 +134,6 @@ public class LanceController extends HttpServlet {
 	    out.println("</table>");
 	    
 	    out.println("<br>");
-//	    out.println("<input type=\"submit\" value=\"Fazer Lances\">");
-
-
 	}
 	
 	private void pritHtmlGerarLance(ServletOutputStream out, Produto prod) throws IOException {
@@ -150,9 +151,6 @@ public class LanceController extends HttpServlet {
 				"	</tr>");
 		out.println("</table>");
 		out.println("</form>");
-		
-		
-		
+				
 	}
-
 }
