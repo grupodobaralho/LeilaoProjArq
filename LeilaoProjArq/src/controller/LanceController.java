@@ -54,21 +54,28 @@ public class LanceController extends HttpServlet {
         Produto prod = pDao.getProdutoEspecifico(idProduto);
         ArrayList<Lance> listLances = lDao.getLances(idProduto);
         
+        String msgValorInvalido = null;
+        
         if(valorLance > 0) {
-        	Lance lance = new Lance();
-        	lance.setId(lDao.sizeLance() + 1);
-        	lance.setIdProduto(idProduto);
-        	lance.setValor(valorLance);
+        	if(valorLance >= prod.getValorInicial() && valorLance > prod.getMaiorLance()) {
+	        	Lance lance = new Lance();
+	        	lance.setId(lDao.sizeLance() + 1);
+	        	lance.setIdProduto(idProduto);
+	        	lance.setValor(valorLance);
+	        	
+	        	//Insere lance no banco
+	        	lDao.inserir(lance);
+	        	
+	        	//Atualiza maior lance
+	        	pDao.atualizaMaiorLance(lance);
+	        	
+	        	//Atualiza pagina sem inserir nenhum elemento no banco
+			    response.sendRedirect("http://localhost:8080/LeilaoProjArq/LanceController?id_produto=" + idProduto);
+        	} else if (valorLance < prod.getValorInicial())
+        		msgValorInvalido = 	"Valor " + valorLance + " eh inferior ao valor incial!";
+        	else
+        		msgValorInvalido = 	"Valor " + valorLance + " eh inferior ao maior lance!";
         	
-        	//Insere lance no banco
-        	lDao.inserir(lance);
-        	
-        	//Atualiza maior lance
-        	if(valorLance > prod.getMaiorLance())
-        		pDao.atualizaMaiorLance(lance);
-        	
-        	//Atualiza pagina sem inserir nenhum elemento no banco
-		    response.sendRedirect("http://localhost:8080/LeilaoProjArq/LanceController?id_produto=" + idProduto);
 			
 		}
         
@@ -86,7 +93,10 @@ public class LanceController extends HttpServlet {
       
         printTabelaInHtml(out, prod, listLances);
         
-        pritHtmlGerarLance(out, prod);
+        printHtmlGerarLance(out, prod);
+        
+        if(msgValorInvalido != null)
+        	printHtmlScriptLanceInvalido(out, msgValorInvalido); 
         
         out.println("</body></html>");
 	    out.close();
@@ -136,7 +146,7 @@ public class LanceController extends HttpServlet {
 	    out.println("<br>");
 	}
 	
-	private void pritHtmlGerarLance(ServletOutputStream out, Produto prod) throws IOException {
+	private void printHtmlGerarLance(ServletOutputStream out, Produto prod) throws IOException {
 		out.println("<form action=\"LanceController\" method=\"GET\">");
 		out.println("<table>\r\n" + 
 				"       <tr><th>Fazer Lance</th></tr>\n" +
@@ -151,6 +161,14 @@ public class LanceController extends HttpServlet {
 				"	</tr>");
 		out.println("</table>");
 		out.println("</form>");
+				
+	}
+	
+	private void printHtmlScriptLanceInvalido(ServletOutputStream out, String msg) throws IOException {
+		
+		out.println("<script type=\"text/javascript\">");
+		out.println("	alert(\"" + msg + "\");");
+		out.println("</script>");		
 				
 	}
 }
